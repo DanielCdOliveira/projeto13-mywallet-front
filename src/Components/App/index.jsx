@@ -9,15 +9,12 @@ function App() {
     return (
       <BrowserRouter>
         <GlobalStyle />
-        <AuthProvider>
           <Routes>
-            <Route path="/" element={<Start />}></Route>
-            <Route path="/cadastro" element={<Register />}></Route>
-            <Route path="/habitos" element={<Habits />}></Route>
-            <Route path="/hoje" element={<Today />}></Route>
-            <Route path="/historico" element={<History />}></Route>
+            <Route path="/" element={<LogIn />}></Route>
+            <Route path="/signup" element={<SignUp />}></Route>
+            <Route path="/start" element={<Start />}></Route>
+            <Route path="/transaction/:type" element={<Transaction />}></Route>
           </Routes>
-        </AuthProvider>
       </BrowserRouter>
     );
   }

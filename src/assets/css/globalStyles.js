@@ -27,8 +27,9 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-    background-color: #f2f2f2;
-	font-family: 'Lexend Deca', sans-serif;
+	margin:0;
+    background-color: #8C11BE;
+	font-family: 'Raleway', sans-serif;
 }
 ol, ul {
 	list-style: none;
@@ -47,8 +48,7 @@ table {
 }
 * {
   box-sizing: border-box;
-  --highlight-color: #52B6FF;
-  --text: #666666;
+  font-family: 'Raleway', sans-serif;
 }
 `;
 
