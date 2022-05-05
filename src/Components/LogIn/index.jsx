@@ -11,8 +11,8 @@ export default function LogIn() {
     <Container>
       <h2>MyWallet</h2>
       <form action="">
-        <input type="email" name="email" id="" placeholder="E-mail"/>
-        <input type="password" name="password" id=""  placeholder="Senha"/>
+        <input type="email" name="email" id="email  " placeholder="E-mail"/>
+        <input type="password" name="password" id="password"  placeholder="Senha"/>
         <button disabled={disabled} type="submit">
           {disabled ? (
             <ThreeDots color="#FFF" height={13} width={50} />

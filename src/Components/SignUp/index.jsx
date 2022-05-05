@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-
+import axios from "axios";
 import Container from "./../../Utilities/Container.jsx";
 import { ThreeDots } from "react-loader-spinner";
 
@@ -9,25 +9,26 @@ function Register() {
     email: "",
     password: "",
     name: "",
-    image: "",
+    repPassword: "",
   });
   const [disabled, setDisbled] = useState(false);
   const navigate = useNavigate();
 
   function newRegister(e) {
-    // setDisbled(true);
-    // e.preventDefault();
-    // const URL =
-    //   "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
-    // const promise = axios.post(URL, data);
-    // promise.then((e) => {
-    //   navigate("/");
-    // });
-    // promise.catch((e) => {
-    //   setDisbled(false);
-    //   alert("Não foi possível concluir a ação!");
-    //   console.log(e.data);
-    // });
+    setDisbled(true);
+    e.preventDefault();
+    const URL =
+      "http://localhost:5000/signup";
+    const promise = axios.post(URL, data);
+    promise.then((e) => {
+      console.log(e);
+      navigate("/");
+    });
+    promise.catch((e) => {
+      setDisbled(false);
+      alert("Não foi possível concluir a ação!");
+      console.log(e.data);
+    });
   }
 
   return (
@@ -38,7 +39,7 @@ function Register() {
             disabled={disabled}
             type="text"
             name=""
-            id="name"
+            id="name-signup"
             placeholder="Nome"
             onChange={(e) => setData({ ...data, name: e.target.value })}
           />
@@ -46,7 +47,7 @@ function Register() {
           disabled={disabled}
           type="email"
           name=""
-          id="email"
+          id="email-signup"
           placeholder="E-mail"
           onChange={(e) => setData({ ...data, email: e.target.value })}
         />
@@ -54,7 +55,7 @@ function Register() {
           disabled={disabled}
           type="password"
           name=""
-          id="password"
+          id="password-signup"
           placeholder="Senha"
           onChange={(e) => setData({ ...data, password: e.target.value })}
         />
@@ -62,9 +63,9 @@ function Register() {
           disabled={disabled}
           type="password"
           name=""
-          id="password"
+          id="rep-password"
           placeholder="Confirme a senha"
-          onChange={(e) => setData({ ...data, password: e.target.value })}
+          onChange={(e) => setData({ ...data, repPassword: e.target.value })}
         />
         <button disabled={disabled} type="submit">
           {disabled ? (
