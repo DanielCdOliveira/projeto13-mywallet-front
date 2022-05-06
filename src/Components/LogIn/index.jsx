@@ -3,8 +3,9 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../../Context/Auth";
 
 import Container from "../../Utilities/Container";
-import styled from "styled-components";
 import { ThreeDots } from "react-loader-spinner";
+
+
 export default function LogIn() {
   const { logIn, user } = useContext(AuthContext);
   const [disabled, setDisabled] = useState(false);
@@ -12,7 +13,6 @@ export default function LogIn() {
     email: "",
     password: "",
   });
-  console.log(user);
   function login(e) {
     setDisabled(true);
     e.preventDefault();

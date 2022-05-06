@@ -14,7 +14,7 @@ function App() {
           <Route path="/" element={<LogIn />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/home" element={<Start />}></Route>
-          <Route path="/transaction/:type" element={<Transaction />}></Route>
+          <Route path="/transaction" element={<Transaction />}></Route>
         </Routes>
       </AuthProvider>
     </BrowserRouter>
