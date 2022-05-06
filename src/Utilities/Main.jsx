@@ -29,6 +29,7 @@ const Main = styled.main`
     width: 100%;
     height: 65vh;
     border-radius: 5px;
+    padding: 23px 12px 10px 12px;
   }
   .buttons {
     display: flex;

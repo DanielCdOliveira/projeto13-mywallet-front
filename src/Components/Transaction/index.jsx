@@ -11,21 +11,19 @@ export default function Transaction() {
     headers: {
       Authorization: `Bearer ${user.token}`,
     },
-  };  
-  const navigate = useNavigate()
+  };
+  const navigate = useNavigate();
   console.log(user);
   console.log(type);
   function setTransaction(e) {
-    e.preventDefault()
+    e.preventDefault();
     const URL = "http://localhost:5000/transaction";
     data.type = type;
-    if (type) {
-      const promise = axios.post(URL, data, config);
-      promise.then(()=>{
-          navigate("/home")
-      })
-      //criar mensagem de erro
-    }
+    const promise = axios.post(URL, data, config);
+    promise.then(() => {
+      navigate("/home");
+    });
+    //criar mensagem de erro
   }
 
   if (type) {
@@ -62,12 +60,13 @@ export default function Transaction() {
           <h1>Nova saída</h1>
         </header>
         <form onSubmit={setTransaction}>
-          <input type="number" name="value" id="value" placeholder="Valor" />
+          <input type="number" name="value" id="value" placeholder="Valor" onChange={(e) => setData({ ...data, value: e.target.value })}/>
           <input
             type="text"
             name="description"
             id="description"
             placeholder="Descrição"
+            onChange={(e) => setData({ ...data, description: e.target.value })}
           />
           <button type="submit">Salvar saída</button>
         </form>
