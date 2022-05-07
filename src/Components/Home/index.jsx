@@ -11,7 +11,8 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 
 export default function Home() {
-  const { user, setType } = useContext(AuthContext);
+  const { setType } = useContext(AuthContext);
+  const user = JSON.parse(localStorage.getItem("user"))
   const config = {
     headers: {
       Authorization: `Bearer ${user.token}`,
@@ -38,7 +39,8 @@ export default function Home() {
         <h1>Olá, {user.name}</h1>
         <RiLogoutBoxRLine />
       </header>
-      <ul>
+      <section>
+         <ul>
         {transactions.transactions?.length > 0 ? (
           transactions.transactions.map((item, index) => (
             <Transactions
@@ -55,10 +57,14 @@ export default function Home() {
           <span
             className={`${transactions.balance > 0 ? "positive" : "negative"} `}
           >
-            {transactions.balance < 0 ? transactions.balance*(-1):transactions.balance}
+            {transactions.balance < 0
+              ? transactions.balance * -1
+              : transactions.balance}
           </span>
         </Balance>
       </ul>
+      </section>
+     
       <div className="buttons">
         <Link to="/transaction" onClick={() => setType(true)}>
           <AiOutlinePlusCircle />
@@ -74,20 +80,20 @@ export default function Home() {
 }
 
 const Balance = styled.div`
-  position: absolute;
-  bottom: 10px;
-  left: 15px;
-  display: flex;
-  justify-content: space-between;
-  width: 90%;
   span {
     font-size: 17px;
     line-height: 20px;
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
   }
   strong {
     font-size: 17px;
     line-height: 20px;
     font-weight: 700;
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
   }
   .positive {
     color: #03ac00;

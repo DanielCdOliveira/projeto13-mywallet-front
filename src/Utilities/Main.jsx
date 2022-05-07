@@ -23,14 +23,21 @@ const Main = styled.main`
     font-size: 30px;
     color: #fff;
   }
-  ul {
-    margin: 22px 0 13px 0;
+  section{
+     margin: 22px 0 13px 0;
     background-color: #fff;
     width: 100%;
     height: 65vh;
     border-radius: 5px;
     padding: 23px 12px 10px 12px;
     position: relative;
+    
+  }
+  ul {
+    width: 100%;
+    height: 55vh;
+   overflow-y: scroll;
+    
   }
   .buttons {
     display: flex;

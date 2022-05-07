@@ -1,18 +1,26 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../Context/Auth";
 import axios from "axios";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 export default function Transaction() {
-  const { user, type } = useContext(AuthContext);
+const { type } = useContext(AuthContext);
+  const user = JSON.parse(localStorage.getItem("user"))
   const [data, setData] = useState({ value: "", description: "" });
   const config = {
     headers: {
       Authorization: `Bearer ${user.token}`,
     },
   };
-  const navigate = useNavigate();
+   const navigate = useNavigate();
+  useEffect(() => {
+    if(type === undefined){
+    navigate("/home");
+  }
+  }, []);
+ 
+ 
   console.log(user);
   console.log(type);
   function setTransaction(e) {

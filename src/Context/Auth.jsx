@@ -7,7 +7,7 @@ export const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
   const [user, setUser] = useState({ token: "" });
-  const [type, setType] = useState()
+  const [type, setType] = useState();
   const config = {
     headers: {
       Authorization: `Bearer ${user.token}`,
@@ -20,11 +20,11 @@ function AuthProvider({ children }) {
 
     const promise = axios.post(URL, data);
     promise.then((response) => {
-        setDisabled(false);
+      setDisabled(false);
       setUser({
-          ...response.data
+        ...response.data,
       });
-      
+      localStorage.setItem("user", JSON.stringify(response.data));
       navigate("/home");
     });
     promise.catch((e) => {
@@ -40,7 +40,7 @@ function AuthProvider({ children }) {
         user,
         logIn,
         type,
-        setType
+        setType,
       }}
     >
       {children}
