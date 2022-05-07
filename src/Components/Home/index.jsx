@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../Context/Auth";
 import axios from "axios";
-
+import styled from "styled-components";
 import Transactions from "./Transactions";
 
 import Main from "../../Utilities/Main";
@@ -17,15 +17,15 @@ export default function Home() {
       Authorization: `Bearer ${user.token}`,
     },
   };
-  const [transactions, setTransactions] = useState({})
-  const [text, setText] = useState()
+  const [transactions, setTransactions] = useState({});
+  const [text, setText] = useState();
   useEffect(() => {
     const promise = axios.get("http://localhost:5000/home", config);
 
     promise.then((response) => {
       console.log(response.data);
-      setText("Não há registros de entrada ou saída")
-      setTransactions(response.data)
+      setText("Não há registros de entrada ou saída");
+      setTransactions(response.data);
     });
     promise.catch((response) => {
       console.log(response);
@@ -39,13 +39,25 @@ export default function Home() {
         <RiLogoutBoxRLine />
       </header>
       <ul>
-      {transactions.length > 0 ? (
-          transactions.map((item, index) => (
-            <Transactions key={index} item={item} setTransactions={setTransactions} />
+        {transactions.transactions?.length > 0 ? (
+          transactions.transactions.map((item, index) => (
+            <Transactions
+              key={index}
+              item={item}
+              setTransactions={setTransactions}
+            />
           ))
         ) : (
           <p>{text}</p>
         )}
+        <Balance className="balance">
+          <strong>SALDO</strong>
+          <span
+            className={`${transactions.balance > 0 ? "positive" : "negative"} `}
+          >
+            {transactions.balance < 0 ? transactions.balance*(-1):transactions.balance}
+          </span>
+        </Balance>
       </ul>
       <div className="buttons">
         <Link to="/transaction" onClick={() => setType(true)}>
@@ -60,3 +72,27 @@ export default function Home() {
     </Main>
   );
 }
+
+const Balance = styled.div`
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  span {
+    font-size: 17px;
+    line-height: 20px;
+  }
+  strong {
+    font-size: 17px;
+    line-height: 20px;
+    font-weight: 700;
+  }
+  .positive {
+    color: #03ac00;
+  }
+  .negative {
+    color: #c70000;
+  }
+`;

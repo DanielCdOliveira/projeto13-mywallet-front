@@ -30,6 +30,7 @@ const Main = styled.main`
     height: 65vh;
     border-radius: 5px;
     padding: 23px 12px 10px 12px;
+    position: relative;
   }
   .buttons {
     display: flex;
