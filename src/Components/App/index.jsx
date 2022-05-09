@@ -5,6 +5,7 @@ import Home from "../Home";
 import Transaction from "../Transaction";
 import GlobalStyle from "../../assets/css/globalStyles";
 import AuthProvider from "../../Context/Auth";
+import EditTransaction from "../EditTransaction"
 function App() {
   return (
     <BrowserRouter>
@@ -15,6 +16,7 @@ function App() {
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/home" element={<Home />}></Route>
           <Route path="/transaction" element={<Transaction />}></Route>
+          <Route path="/transaction/:id" element={<EditTransaction />}></Route>
         </Routes>
       </AuthProvider>
     </BrowserRouter>

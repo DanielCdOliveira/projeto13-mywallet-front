@@ -2,42 +2,41 @@ import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../Context/Auth";
 import axios from "axios";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export default function Transaction() {
-  const { type } = useContext(AuthContext);
+  const transaction = useLocation().state
+  console.log(transaction);
   const user = JSON.parse(localStorage.getItem("user"));
-  const [data, setData] = useState({ value: "", description: "" });
-  const config = {
-    headers: {
-      Authorization: `Bearer ${user.token}`,
-    },
-  };
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (type === undefined) {
-      navigate("/home");
-    }
-  }, []);
+  const [data, setData] = useState({ value: transaction.value, description: transaction.description });
 
-  console.log(user);
-  console.log(type);
+  const navigate = useNavigate();
+
+
+
   function setTransaction(e) {
     e.preventDefault();
-    const URL = "http://localhost:5000/transaction";
-    data.type = type;
-    const promise = axios.post(URL, data, config);
-    promise.then(() => {
-      navigate("/home");
+    const promise = axios({
+      method: "put",
+      url: `http://localhost:5000/transaction/${transaction._id}`,
+      data: {
+        data
+      },
+      headers: { Authorization: `Bearer ${user.token}` },
     });
-    //criar mensagem de erro
+    promise.then(()=>{
+      navigate("/home")
+    })
+    promise.catch((e)=>{
+      console.log(e);
+    })
   }
 
-  if (type) {
+  if (transaction.type) {
     return (
       <MainTransaction>
         <header>
-          <h1>Nova entrada</h1>
+          <h1>Editar entrada</h1>
         </header>
         {/* criar input q aceita numeros float */}
         <form onSubmit={setTransaction}>
@@ -58,10 +57,11 @@ export default function Transaction() {
             name="description"
             id="description"
             placeholder="Descrição"
+            value={data.description}
             onChange={(e) => setData({ ...data, description: e.target.value })}
             required
           />
-          <button type="submit">Salvar entrada</button>
+          <button type="submit">Atualizar entrada</button>
         </form>
       </MainTransaction>
     );
@@ -69,7 +69,7 @@ export default function Transaction() {
     return (
       <MainTransaction>
         <header>
-          <h1>Nova saída</h1>
+          <h1>Editar saída</h1>
         </header>
         <form onSubmit={setTransaction}>
           <input
@@ -78,6 +78,7 @@ export default function Transaction() {
             step="any"
             name="value"
             id="value"
+            value={data.value}
             placeholder="Valor"
             onChange={(e) => setData({ ...data, value: e.target.value })}
             required
@@ -87,10 +88,11 @@ export default function Transaction() {
             name="description"
             id="description"
             placeholder="Descrição"
+            value={data.description}
             onChange={(e) => setData({ ...data, description: e.target.value })}
             required
           />
-          <button type="submit">Salvar saída</button>
+          <button type="submit">Atualizar saída</button>
         </form>
       </MainTransaction>
     );

@@ -4,8 +4,6 @@ import { AuthContext } from "../../Context/Auth";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
-
 export default function Transactions({ item }) {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
@@ -17,31 +15,32 @@ export default function Transactions({ item }) {
   function deleteTransaction(id) {
     console.log(id);
     console.log(config);
-    let data = {id}
-    // const promise = axios.delete("http://localhost:5000/transaction",{"body":data},config);
     const promise = axios({
-      method: 'delete',
-      url: 'http://localhost:5000/transaction',
+      method: "delete",
+      url: "http://localhost:5000/transaction",
       data: {
         idTransaction: id,
       },
-      headers: {'Authorization': `Bearer ${user.token}`}
-    })
+      headers: { Authorization: `Bearer ${user.token}` },
+    });
     promise.then((response) => {
       console.log(response.data);
+      // atualizar pagina
+      window.refresh();
     });
     promise.catch((response) => {
       console.log(response);
     });
+  }
 
-
-
+  function editTransaction(id){
+    navigate(`/transaction/${id}`, {state:item})
   }
   return (
     <Li>
       <div>
         <span className="date">{item.date}</span>
-        <span className="description">{item.description}</span>
+        <span className="description" onClick={() => editTransaction(item._id)}>{item.description}</span>
       </div>
       <span className={`${item.type}`}>{item.value.replace(".", ",")}</span>
       <span className="delete" onClick={() => deleteTransaction(item._id)}>
