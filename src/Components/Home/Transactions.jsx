@@ -1,12 +1,44 @@
 import styled from "styled-components";
+import { useState, useContext, useEffect } from "react";
+import { AuthContext } from "../../Context/Auth";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+
+
 export default function Transactions({ item }) {
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const config = {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  };
+  function deleteTransaction(id) {
+    console.log(id);
+    console.log(config);
+    const promise = axios.delete("http://localhost:5000/transaction",config,{data:id});
+
+    promise.then((response) => {
+      console.log(response.data);
+    });
+    promise.catch((response) => {
+      console.log(response);
+    });
+
+
+
+  }
   return (
     <Li>
       <div>
         <span className="date">{item.date}</span>
         <span className="description">{item.description}</span>
       </div>
-      <span className={`${item.type}`}>{item.value}</span>
+      <span className={`${item.type}`}>{item.value.replace(".", ",")}</span>
+      <span className="delete" onClick={() => deleteTransaction(item._id)}>
+        x
+      </span>
     </Li>
   );
 }
@@ -18,6 +50,7 @@ const Li = styled.li`
   font-size: 16px;
   line-height: 19px;
   padding-bottom: 15px;
+  position: relative;
   .date {
     color: #c6c6c6;
   }
@@ -27,9 +60,15 @@ const Li = styled.li`
   }
   .true {
     color: #26ac00;
-    align-self: flex-end;
+    padding-right: 15px;
   }
   .false {
     color: #c70000;
+    padding-right: 15px;
+  }
+  .delete {
+    position: absolute;
+    right: 0;
+    color: #c6c6c6;
   }
 `;

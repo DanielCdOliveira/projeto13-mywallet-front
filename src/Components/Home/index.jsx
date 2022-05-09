@@ -3,16 +3,18 @@ import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../Context/Auth";
 import axios from "axios";
 import styled from "styled-components";
-import Transactions from "./Transactions";
 
+import Transactions from "./Transactions";
 import Main from "../../Utilities/Main";
+
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { AiOutlineMinusCircle } from "react-icons/ai";
 
 export default function Home() {
+  const navigate = useNavigate();
   const { setType } = useContext(AuthContext);
-  const user = JSON.parse(localStorage.getItem("user"))
+  const user = JSON.parse(localStorage.getItem("user"));
   const config = {
     headers: {
       Authorization: `Bearer ${user.token}`,
@@ -32,39 +34,47 @@ export default function Home() {
       console.log(response);
     });
   }, []);
-
+  console.log(transactions);
+  function logOut() {
+    localStorage.removeItem("user");
+    navigate("/");
+  }
   return (
     <Main>
       <header>
         <h1>Olá, {user.name}</h1>
-        <RiLogoutBoxRLine />
+        <RiLogoutBoxRLine onClick={logOut} />
       </header>
       <section>
-         <ul>
-        {transactions.transactions?.length > 0 ? (
-          transactions.transactions.map((item, index) => (
-            <Transactions
-              key={index}
-              item={item}
-              setTransactions={setTransactions}
-            />
-          ))
-        ) : (
-          <p>{text}</p>
-        )}
-        <Balance className="balance">
-          <strong>SALDO</strong>
-          <span
-            className={`${transactions.balance > 0 ? "positive" : "negative"} `}
-          >
-            {transactions.balance < 0
-              ? transactions.balance * -1
-              : transactions.balance}
-          </span>
-        </Balance>
-      </ul>
+       
+          {transactions.transactions?.length > 0 ? (
+             <ul>
+              {transactions.transactions.map((item, index) => (
+                <Transactions
+                  key={index}
+                  item={item}
+                  setTransactions={setTransactions}
+                />
+              ))}
+              <Balance className="balance">
+                <strong>SALDO</strong>
+                <span
+                  className={`${
+                    transactions.balance >= 0 ? "positive" : "negative"
+                  } `}
+                >
+                  {transactions.balance < 0
+                    ? (transactions.balance * -1).replace(".", ",")
+                    : transactions.balance.replace(".", ",")}
+                </span>
+              </Balance>
+            </ul>
+          ) : (
+            <p className="empty">{text}</p>
+          )}
+        
       </section>
-     
+
       <div className="buttons">
         <Link to="/transaction" onClick={() => setType(true)}>
           <AiOutlinePlusCircle />

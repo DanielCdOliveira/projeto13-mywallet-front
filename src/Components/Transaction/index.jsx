@@ -46,7 +46,10 @@ const { type } = useContext(AuthContext);
             type="number"
             name="value"
             id="value"
-            placeholder="Valor"
+            min={1}
+            step="any"
+            placeholder="Valor (ponto para decimais)"
+            value={data.value}
             onChange={(e) => setData({ ...data, value: e.target.value })}
           />
 
@@ -68,7 +71,7 @@ const { type } = useContext(AuthContext);
           <h1>Nova saída</h1>
         </header>
         <form onSubmit={setTransaction}>
-          <input type="number" name="value" id="value" placeholder="Valor" onChange={(e) => setData({ ...data, value: e.target.value })}/>
+          <input type="number" min={1} step="any" name="value" id="value" placeholder="Valor (ponto para decimais)" onChange={(e) => setData({ ...data, value: e.target.value })}/>
           <input
             type="text"
             name="description"

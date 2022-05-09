@@ -37,7 +37,6 @@ const Main = styled.main`
     width: 100%;
     height: 55vh;
    overflow-y: scroll;
-    
   }
   .buttons {
     display: flex;
@@ -63,6 +62,16 @@ const Main = styled.main`
   }
   a p{
     width: 30px;
+  }
+  .empty{
+    text-align: center;
+    color:#868686;
+    position: absolute;
+    bottom:50%;
+    left: 10%;
+    width: 80%;
+
+;
   }
 `;
 export default Main;
