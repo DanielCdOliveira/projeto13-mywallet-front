@@ -17,8 +17,16 @@ export default function Transactions({ item }) {
   function deleteTransaction(id) {
     console.log(id);
     console.log(config);
-    const promise = axios.delete("http://localhost:5000/transaction",config,{data:id});
-
+    let data = {id}
+    // const promise = axios.delete("http://localhost:5000/transaction",{"body":data},config);
+    const promise = axios({
+      method: 'delete',
+      url: 'http://localhost:5000/transaction',
+      data: {
+        idTransaction: id,
+      },
+      headers: {'Authorization': `Bearer ${user.token}`}
+    })
     promise.then((response) => {
       console.log(response.data);
     });
