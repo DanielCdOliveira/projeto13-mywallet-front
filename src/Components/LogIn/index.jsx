@@ -9,8 +9,9 @@ export default function LogIn() {
   const navigate = useNavigate();
   const { logIn } = useContext(AuthContext);
   const [disabled, setDisabled] = useState(false);
-  const user = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       navigate("/home");
     }

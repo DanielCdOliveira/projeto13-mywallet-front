@@ -15,14 +15,16 @@ export default function Home() {
   const navigate = useNavigate();
   const { setType } = useContext(AuthContext);
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const [transactions, setTransactions] = useState({});
+  const [text, setText] = useState();
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
   const config = {
     headers: {
       Authorization: `Bearer ${user.token}`,
     },
   };
-  const [transactions, setTransactions] = useState({});
-  const [text, setText] = useState();
-  useEffect(() => {
     const promise = axios.get("http://localhost:5000/home", config);
 
     promise.then((response) => {
