@@ -19,9 +19,6 @@ export default function Transaction() {
       navigate("/home");
     }
   }, []);
-
-  console.log(user);
-  console.log(type);
   function setTransaction(e) {
     e.preventDefault();
     const URL = "http://localhost:5000/transaction";

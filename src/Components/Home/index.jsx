@@ -26,7 +26,6 @@ export default function Home() {
     const promise = axios.get("http://localhost:5000/home", config);
 
     promise.then((response) => {
-      console.log(response.data);
       setText("Não há registros de entrada ou saída");
       setTransactions(response.data);
     });
@@ -34,7 +33,6 @@ export default function Home() {
       console.log(response);
     });
   }, []);
-  console.log(transactions);
   function logOut() {
     localStorage.removeItem("user");
     navigate("/");

@@ -8,11 +8,7 @@ export const AuthContext = createContext({});
 function AuthProvider({ children }) {
   const [user, setUser] = useState({ token: "" });
   const [type, setType] = useState();
-  const config = {
-    headers: {
-      Authorization: `Bearer ${user.token}`,
-    },
-  };
+
   const navigate = useNavigate();
 
   function logIn(data, setDisabled) {

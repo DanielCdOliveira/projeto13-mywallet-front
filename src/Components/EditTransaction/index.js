@@ -1,18 +1,18 @@
-import { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../../Context/Auth";
+import { useState } from "react";
+
 import axios from "axios";
 import styled from "styled-components";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Transaction() {
-  const transaction = useLocation().state
-  console.log(transaction);
+  const transaction = useLocation().state;
   const user = JSON.parse(localStorage.getItem("user"));
-  const [data, setData] = useState({ value: transaction.value, description: transaction.description });
+  const [data, setData] = useState({
+    value: transaction.value,
+    description: transaction.description,
+  });
 
   const navigate = useNavigate();
-
-
 
   function setTransaction(e) {
     e.preventDefault();
@@ -20,16 +20,16 @@ export default function Transaction() {
       method: "put",
       url: `http://localhost:5000/transaction/${transaction._id}`,
       data: {
-        data
+        data,
       },
       headers: { Authorization: `Bearer ${user.token}` },
     });
-    promise.then(()=>{
-      navigate("/home")
-    })
-    promise.catch((e)=>{
+    promise.then(() => {
+      navigate("/home");
+    });
+    promise.catch((e) => {
       console.log(e);
-    })
+    });
   }
 
   if (transaction.type) {

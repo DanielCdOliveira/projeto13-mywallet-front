@@ -1,56 +1,50 @@
 import styled from "styled-components";
-import { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../../Context/Auth";
+
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function Transactions({ item, setTransactions}) {
+export default function Transactions({ item, setTransactions }) {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
-  const config = {
-    headers: {
-      Authorization: `Bearer ${user.token}`,
-    },
-  };
   function deleteTransaction(id) {
-    let result = window.confirm("Tem certeza que deseja remover essa transação?");
-    if (result){
-      console.log(id);
-    console.log(config);
-    const promise = axios({
-      method: "delete",
-      url: "http://localhost:5000/transaction",
-      data: {
-        idTransaction: id,
-      },
-      headers: { Authorization: `Bearer ${user.token}` },
-    });
-    promise.then((response) => {
-      console.log(response.data);
+    let result = window.confirm(
+      "Tem certeza que deseja remover essa transação?"
+    );
+    if (result) {
       const promise = axios({
-        method: "get",
-        url: "http://localhost:5000/home",
+        method: "delete",
+        url: "http://localhost:5000/transaction",
+        data: {
+          idTransaction: id,
+        },
         headers: { Authorization: `Bearer ${user.token}` },
       });
-      promise.then((e)=>{
-        setTransactions(e.data)
-        console.log("foiiii");
-      })
-    });
-    promise.catch((response) => {
-      console.log(response);
-    });
+      promise.then((response) => {
+        const promise = axios({
+          method: "get",
+          url: "http://localhost:5000/home",
+          headers: { Authorization: `Bearer ${user.token}` },
+        });
+        promise.then((e) => {
+          setTransactions(e.data);
+        });
+      });
+      promise.catch((response) => {
+        console.log(response);
+      });
     }
   }
 
-  function editTransaction(id){
-    navigate(`/transaction/${id}`, {state:item})
+  function editTransaction(id) {
+    navigate(`/transaction/${id}`, { state: item });
   }
   return (
     <Li>
       <div>
         <span className="date">{item.date}</span>
-        <span className="description" onClick={() => editTransaction(item._id)}>{item.description}</span>
+        <span className="description" onClick={() => editTransaction(item._id)}>
+          {item.description}
+        </span>
       </div>
       <span className={`${item.type}`}>{item.value.replace(".", ",")}</span>
       <span className="delete" onClick={() => deleteTransaction(item._id)}>

@@ -21,13 +21,12 @@ function Register() {
       "http://localhost:5000/signup";
     const promise = axios.post(URL, data);
     promise.then((e) => {
-      console.log(e);
       navigate("/");
     });
     promise.catch((e) => {
       setDisbled(false);
       alert("Não foi possível concluir a ação!");
-      console.log(e.data);
+      console.log(e);
     });
   }
 
