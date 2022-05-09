@@ -18,7 +18,7 @@ function Register() {
     setDisbled(true);
     e.preventDefault();
     const URL =
-      "http://localhost:5000/signup";
+      "https://git.heroku.com/project-mywallet.git/signup";
     const promise = axios.post(URL, data);
     promise.then((e) => {
       navigate("/");

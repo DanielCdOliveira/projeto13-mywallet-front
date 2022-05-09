@@ -12,7 +12,7 @@ function AuthProvider({ children }) {
   const navigate = useNavigate();
 
   function logIn(data, setDisabled) {
-    const URL = "http://localhost:5000/";
+    const URL = "https://git.heroku.com/project-mywallet.git/";
 
     const promise = axios.post(URL, data);
     promise.then((response) => {

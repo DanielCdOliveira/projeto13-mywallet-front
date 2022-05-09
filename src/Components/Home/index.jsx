@@ -25,7 +25,7 @@ export default function Home() {
       Authorization: `Bearer ${user.token}`,
     },
   };
-    const promise = axios.get("http://localhost:5000/home", config);
+    const promise = axios.get("https://git.heroku.com/project-mywallet.git/home", config);
 
     promise.then((response) => {
       setText("Não há registros de entrada ou saída");

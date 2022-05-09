@@ -21,7 +21,7 @@ export default function Transaction() {
   }, []);
   function setTransaction(e) {
     e.preventDefault();
-    const URL = "http://localhost:5000/transaction";
+    const URL = "https://git.heroku.com/project-mywallet.git/transaction";
     data.type = type;
     const promise = axios.post(URL, data, config);
     promise.then(() => {
