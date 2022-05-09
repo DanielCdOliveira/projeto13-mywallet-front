@@ -18,7 +18,7 @@ export default function Transaction() {
     e.preventDefault();
     const promise = axios({
       method: "put",
-      url: `https://git.heroku.com/project-mywallet.git/${transaction._id}`,
+      url: `https://project-mywallet.herokuapp.com//${transaction._id}`,
       data: {
         data,
       },

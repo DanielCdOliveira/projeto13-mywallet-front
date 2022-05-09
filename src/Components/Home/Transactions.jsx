@@ -13,7 +13,7 @@ export default function Transactions({ item, setTransactions }) {
     if (result) {
       const promise = axios({
         method: "delete",
-        url: "https://git.heroku.com/project-mywallet.git/transaction",
+        url: "https://project-mywallet.herokuapp.com/transaction",
         data: {
           idTransaction: id,
         },
@@ -22,7 +22,7 @@ export default function Transactions({ item, setTransactions }) {
       promise.then((response) => {
         const promise = axios({
           method: "get",
-          url: "https://git.heroku.com/project-mywallet.git/home",
+          url: "https://project-mywallet.herokuapp.com/home",
           headers: { Authorization: `Bearer ${user.token}` },
         });
         promise.then((e) => {

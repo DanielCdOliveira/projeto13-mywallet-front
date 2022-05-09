@@ -18,7 +18,7 @@ function Register() {
     setDisbled(true);
     e.preventDefault();
     const URL =
-      "https://git.heroku.com/project-mywallet.git/signup";
+      "https://project-mywallet.herokuapp.com/signup";
     const promise = axios.post(URL, data);
     promise.then((e) => {
       navigate("/");
