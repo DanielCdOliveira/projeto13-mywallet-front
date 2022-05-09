@@ -46,33 +46,31 @@ export default function Home() {
         <RiLogoutBoxRLine onClick={logOut} />
       </header>
       <section>
-       
-          {transactions.transactions?.length > 0 ? (
-             <ul>
-              {transactions.transactions.map((item, index) => (
-                <Transactions
-                  key={index}
-                  item={item}
-                  setTransactions={setTransactions}
-                />
-              ))}
-              <Balance className="balance">
-                <strong>SALDO</strong>
-                <span
-                  className={`${
-                    transactions.balance >= 0 ? "positive" : "negative"
-                  } `}
-                >
-                  {transactions.balance < 0
-                    ? (transactions.balance * -1).replace(".", ",")
-                    : transactions.balance.replace(".", ",")}
-                </span>
-              </Balance>
-            </ul>
-          ) : (
-            <p className="empty">{text}</p>
-          )}
-        
+        {transactions.transactions?.length > 0 ? (
+          <ul>
+            {transactions.transactions.map((item, index) => (
+              <Transactions
+                key={index}
+                item={item}
+                setTransactions={setTransactions}
+              />
+            ))}
+            <Balance className="balance">
+              <strong>SALDO</strong>
+              <span
+                className={`${
+                  transactions.balance >= 0 ? "positive" : "negative"
+                } `}
+              >
+                {transactions.balance < 0
+                  ? (transactions.balance * -1).toString().replace(".", ",")
+                  : transactions.balance.replace(".", ",")}
+              </span>
+            </Balance>
+          </ul>
+        ) : (
+          <p className="empty">{text}</p>
+        )}
       </section>
 
       <div className="buttons">

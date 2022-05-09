@@ -4,7 +4,7 @@ import { AuthContext } from "../../Context/Auth";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-export default function Transactions({ item }) {
+export default function Transactions({ item, setTransactions}) {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const config = {
@@ -13,7 +13,9 @@ export default function Transactions({ item }) {
     },
   };
   function deleteTransaction(id) {
-    console.log(id);
+    let result = window.confirm("Tem certeza que deseja remover essa transação?");
+    if (result){
+      console.log(id);
     console.log(config);
     const promise = axios({
       method: "delete",
@@ -25,12 +27,20 @@ export default function Transactions({ item }) {
     });
     promise.then((response) => {
       console.log(response.data);
-      // atualizar pagina
-      window.refresh();
+      const promise = axios({
+        method: "get",
+        url: "http://localhost:5000/home",
+        headers: { Authorization: `Bearer ${user.token}` },
+      });
+      promise.then((e)=>{
+        setTransactions(e.data)
+        console.log("foiiii");
+      })
     });
     promise.catch((response) => {
       console.log(response);
     });
+    }
   }
 
   function editTransaction(id){

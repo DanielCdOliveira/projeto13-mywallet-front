@@ -42,6 +42,7 @@ function Register() {
             id="name-signup"
             placeholder="Nome"
             onChange={(e) => setData({ ...data, name: e.target.value })}
+            required
           />
         <input
           disabled={disabled}
@@ -50,6 +51,7 @@ function Register() {
           id="email-signup"
           placeholder="E-mail"
           onChange={(e) => setData({ ...data, email: e.target.value })}
+          required
         />
         <input
           disabled={disabled}
@@ -58,6 +60,7 @@ function Register() {
           id="password-signup"
           placeholder="Senha"
           onChange={(e) => setData({ ...data, password: e.target.value })}
+          required
         />
        <input
           disabled={disabled}
@@ -66,6 +69,7 @@ function Register() {
           id="rep-password"
           placeholder="Confirme a senha"
           onChange={(e) => setData({ ...data, repPassword: e.target.value })}
+          required
         />
         <button disabled={disabled} type="submit">
           {disabled ? (
